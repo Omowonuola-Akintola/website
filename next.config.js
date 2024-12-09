@@ -80,7 +80,6 @@ module.exports = () => {
       ],
       unoptimized,
     },
-    /**
     async headers() {
       return [
         {
@@ -89,7 +88,6 @@ module.exports = () => {
         },
       ]
     },
-     **/
     webpack: (config, options) => {
       config.module.rules.push({
         test: /\.svg$/,

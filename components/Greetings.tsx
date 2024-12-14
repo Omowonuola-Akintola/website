@@ -32,10 +32,6 @@ const Greetings = () => {
           <a href="https://www.instagram.com/puppydoudou/">instagram</a>.
         </p>
 
-        <div className="type-wrap">
-          <span style={{ whiteSpace: 'pre' }} ref={el} />
-          <br />
-
           <p>
             This website is used to introduce myself, publish some regular blogs, document my travel
             diaries, as well as record books, movies, and music I've experienced. Feel free to{' '}

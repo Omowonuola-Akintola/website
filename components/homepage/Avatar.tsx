@@ -31,7 +31,7 @@ const Avatar = () => {
   }, [])
 
   const onMouseLeave = useCallback(() => {
-    setStyle({ transform: 'rotateX(0deg) rotateY(0deg)' });
+    setStyle({ transform: 'rotateX(0deg) rotateY(0deg)' })
   }, [])
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Avatar = () => {
 
       current.removeEventListener('mousemove', onMouseMove)
       current.removeEventListener('mouseleave', onMouseLeave)
-    };
+    }
   }, [onMouseLeave, onMouseMove])
 
   return (
@@ -58,11 +58,12 @@ const Avatar = () => {
     >
       <div style={style} 
       className="max-h-[600px] overflow-hidden rounded-md transition-all duration-200 ease-out"
-      >
-        <Image src={'/static/images/eo.png'} alt="avatar" width={1000} height={600}  />
+    >
+    <Image src={'/static/images/eo.png'} alt="avatar" width={1000} height={600}  />
       </div>
     </div>
   )
 }
+
 
 export default Avatar

@@ -39,5 +39,4 @@ const Image = (props: ImageProps) => {
   )
 }
 
-
 export default Image

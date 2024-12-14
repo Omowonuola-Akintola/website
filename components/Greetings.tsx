@@ -28,7 +28,7 @@ const Greetings = () => {
         </p>
 
         <p>
-          I have an adorable Shiba Inu <Emoji kind={'dog'} /> named doudou. You can see him on his{' '}
+          I have an adorable Shiba Inu named doudou. You can see him on his{' '}
           <a href="https://www.instagram.com/puppydoudou/">instagram</a>.
         </p>
 

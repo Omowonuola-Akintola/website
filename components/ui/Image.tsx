@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import NextImage from 'next/image';
-import type { ImageProps as NextImageProps } from 'next/image';
+import NextImage from 'next/image'
+import type { ImageProps as NextImageProps } from 'next/image'
 
-import useImageLoadedState from 'hooks/use-image-loaded-state';
+import useImageLoadedState from 'hooks/use-image-loaded-state'
 
 export interface ImageProps extends Omit<NextImageProps, 'src' | 'priority'> {
-  src: string;
+  src: string
 }
 
 const Image = (props: ImageProps) => {
-  const { alt, src, loading = 'lazy', style, className, ...rest } = props;
-  const [loaded, onLoad] = useImageLoadedState(src);
+  const { alt, src, loading = 'lazy', style, className, ...rest } = props
+  const [loaded, onLoad] = useImageLoadedState(src)
 
   // Build class names manually
   const containerClasses = `image-container relative overflow-hidden ${
     !loaded ? 'animate-pulse [animation-duration:4s]' : ''
-  } ${className || ''}`;
+  } ${className || ''}`
 
   const imageClasses = `transition-all duration-500 [transition-timing-function:cubic-bezier(.4,0,.2,1)] object-center ${
     loaded ? 'blur-0' : 'blur-xl'
-  }`;
+  }`
 
   return (
     <div className={containerClasses}>
@@ -36,7 +36,7 @@ const Image = (props: ImageProps) => {
         {...rest}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Image;
+export default Image

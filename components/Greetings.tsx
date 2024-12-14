@@ -11,12 +11,12 @@ const Greetings = () => {
       </h1>
       <div className="prose dark:prose-dark lg:prose-lg">
         <p>
-          Welcome! I’m <b>Zhou Zihang</b>. <Emoji kind="partyingFace" />
+          Welcome! I’m <b>Zhou Zihang</b>. 
         </p>
 
         <p>
           "SOTO" is the abbreviation I use on social media. I currently live in China{` `}
-          <Emoji kind={'chinaFlag'} /> and have just graduated from Beihang University with a
+           and have just graduated from Beihang University with a
           bachelor's degree in Computer Science and Technology. I'm planning to study abroad in
           Canada and am currently waiting for my visa.
         </p>

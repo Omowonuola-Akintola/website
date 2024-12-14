@@ -39,7 +39,6 @@ const Greetings = () => {
           </p>
         </div>
       </div>
-    </div>
   )
 }
 

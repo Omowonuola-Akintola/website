@@ -1,14 +1,14 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Ola Blog',
+  //title: 'Ola Blog',
   author: 'Omowonuola Akintola',
-  headerTitle: 'Ola Blog',
-  description: 'A blog created with Next.js and Tailwind.css',
+  headerTitle: 'Omowonuola A.',
+  description: 'Using Earth Observation for Good',
   language: 'en-us',
   theme: 'light', // system, dark or light
   siteUrl: 'https://omowonuola-akintola.github.io/website/',
   siteRepo: 'https://github.com/Omowonuola-Akintola/website/',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
+  siteLogo: `${process.env.BASE_PATH || ''}/static/images/ola-picture.jpg`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   // mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'wola.akintola@gmail.com',

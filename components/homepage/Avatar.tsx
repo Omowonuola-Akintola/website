@@ -56,14 +56,14 @@ const Avatar = () => {
       style={{ perspective: '900px' }}
       ref={ref}
     >
-      <div style={style} 
-      className="max-h-[600px] overflow-hidden rounded-md transition-all duration-200 ease-out"
-    >
-    <Image src={'/static/images/eo.png'} alt="avatar" width={1000} height={600}  />
+      <div
+        style={style}
+        className="max-h-[600px] overflow-hidden rounded-md transition-all duration-200 ease-out"
+      >
+        <Image src={'/static/images/eo.png'} alt="avatar" width={1000} height={600} />
       </div>
     </div>
   )
 }
-
 
 export default Avatar

@@ -1,41 +1,9 @@
 import React from 'react'
-import Typed from 'typed.js'
+//import Typed from 'typed.js'
 import Emoji from '@/components/twemoji'
 import Link from 'next/link'
 
 const Greetings = () => {
-  // Create reference to store the DOM element containing the animation
-  const el = React.useRef(null)
-  // Create reference to store the Typed instance itself
-  const typed = React.useRef<Typed | null>(null)
-
-  React.useEffect(() => {
-    const options = {
-      strings: [
-        'I was born in 2000.',
-        'I was raised in Alxa, Inner Mongolia.',
-        'I like 🏊‍♂️ / 🏃 / 🏸.',
-        'I like 進撃の巨人.',
-        'I like Minecraft.',
-        'I like LOL 🎮.',
-        'I like J-POP/Chinese folk music 🎵.',
-        '...',
-      ],
-      typeSpeed: 50,
-      backSpeed: 50,
-      loop: true,
-    }
-
-    // elRef refers to the <span> rendered below
-    typed.current = new Typed(el.current, options)
-
-    return () => {
-      // Make sure to destroy Typed instance during cleanup
-      // to prevent memory leaks
-      typed.current?.destroy()
-    }
-  }, [])
-
   return (
     <div className="lg:mb-10 lg:mt-10">
       <h1 className="bg-gradient-to-r from-lime-500 to-yellow-400 bg-clip-text text-7xl font-extrabold text-transparent dark:to-blue-500">

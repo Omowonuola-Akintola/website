@@ -60,7 +60,7 @@ const Avatar = () => {
         style={style}
         className="max-h-[600px] overflow-hidden rounded-md transition-all duration-200 ease-out"
       >
-        <Image src={'/static/images/eo.png'} alt="avatar" width={1000} height={600} />
+        <Image src={'/static/images/eo.jpg'} alt="avatar" width={1000} height={600} />
       </div>
     </div>
   )

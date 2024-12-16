@@ -1,11 +1,11 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Ola Blog',
+  title: 'Omowonuola A.',
   author: 'Omowonuola Akintola',
-  headerTitle: 'Ola Blog',
+  headerTitle: 'Omowonuola A.',
   description: 'A blog created with Next.js and Tailwind.css',
   language: 'en-us',
-  theme: 'light', // system, dark or light
+  theme: 'dark', // system, dark or light
   siteUrl: 'https://omowonuola-akintola.github.io/website/',
   siteRepo: 'https://github.com/Omowonuola-Akintola/website/',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,

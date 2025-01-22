@@ -1,15 +1,44 @@
 ---
-title: 'A beginners guide to RADAR analysis with SNAP'
-date: 2024-12-30T15:32:14Z
+title: 'Leveraging SAR data and InSAR technique to visualize ground deformation from Earthquake'
+date: 2025-01-22T15:32:14Z
 lastmod: '2024-02-01'
-tags: ['eo', 'radar', 'guide', 'disaster']
+tags: ['eo', 'radar', 'earthquake', 'disaster']
 draft: false
-summary: 'This blog gives a detail explanation to RADAR analysis using the SNAP tool developed by ESA'
+summary: 'This blog gives a short explanation to SAR and InSAR techniques'
 layout: PostSimple
 
 ---
 
-Testing Imagery
+Introduction
 
-<Image alt="ocean" src="/static/images/ocean.jpeg" width={1200} height={800} />
+<Image alt="ocean" src="/static/images/OBIA/cover_img.jpeg" width={1200} height={800} />
 
+Satellite-based Earth Observation (EO) data plays a critical role for supporting disaster efforts. 
+While optical imagery has traditionally dominated this field, Synthetic Aperture Radar (SAR) technology 
+has emerged as an increasingly valuable tool. SAR generates a high-resolution image of the earth surface 
+using radar signals making them useful in areas that are hard to reach or with extreme weather conditions. 
+The capabilities of SAR to penetrate clouds, dust, smokes makes them useful for monitoring disasters in challenging 
+conditions, including tracking flood progression, conducting damage assessment, or detecting surface deformations that
+ might result from earthquakes or landslides.
+
+The European Commission's has made access to Earth observation data possible through the Copernicus programme. Copernicus
+provides free and open data to users worldwide including SAR data from the Sentinel 1 mission. This open-data approach is
+ beneficial for resource-limited regions, enabling them to implement sophisticated monitoring and early warning systems that 
+ were previously out of reach. 
+
+WHAT IS Synthetic Aperture Radar (SAR)
+
+Synthetic Aperture Radar (SAR) is an advanced remote sensing technology that operates independently of sunlight, enabling 
+continuous Earth monitoring throughout day and night. Unlike passive sensors, SAR actively emits electromagnetic pulses and
+ measures both the intensity of the returned signal and its travel time. This process generates high-resolution images based 
+ on how strongly different surfaces reflect the radar signals back to the sensor. These detailed images serve numerous 
+ purposes, particularly in monitoring natural disasters and environmental changes.
+
+Interferometric SAR (InSAR) builds upon this technology by comparing multiple SAR images of the same location taken at 
+different times. By analyzing the differences between these images, InSAR can detect and measure subtle changes in ground
+ elevation and surface deformation with remarkable precision.
+
+WHAT DOES EARTHQUAKE LOOK LIKE ON SAR DATA
+
+We can examine the (SAR) data from before and after the September 2023 Morocco earthquake using the InSAR technique to 
+visualize and understand the ground deformation that occurred due to seismic activity.

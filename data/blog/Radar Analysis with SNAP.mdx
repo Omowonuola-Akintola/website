@@ -8,7 +8,7 @@ summary: 'This blog gives a short explanation to SAR and InSAR techniques for vi
 layout: PostSimple
 
 ---
-INTRODUCTION
+## INTRODUCTION
 
 <Image alt="ocean" src="/static/images/OBIA/cover_img.jpeg" width={1200} height={800} />
 
@@ -23,7 +23,7 @@ The European Commission has made access to Earth observation data possible throu
 provides free and open data to users worldwide, including SAR data from the Sentinel 1 mission. This open-data approach is
 beneficial for resource-limited regions to support monitoring and developing systems that were previously out of reach. 
 
-WHAT IS Synthetic Aperture Radar (SAR)
+## WHAT IS Synthetic Aperture Radar (SAR)
 
 Synthetic Aperture Radar (SAR) is an advanced remote sensing technology that operates independently of sunlight, enabling 
 continuous Earth monitoring day and night. Unlike passive sensors, SAR emits electromagnetic pulses and measures both the 
@@ -35,7 +35,7 @@ Interferometric SAR (InSAR) builds upon this technology by comparing multiple SA
 different times. By analyzing the differences between these images, InSAR can detect and measure subtle changes in ground
 elevation and surface deformation with remarkable precision.
 
-WHAT DOES EARTHQUAKE LOOK LIKE ON SAR DATA
+## WHAT DOES EARTHQUAKE LOOK LIKE ON SAR DATA
 
 We can examine SAR images from the Morocco earthquake using the InSAR technique to visualize and understand the ground deformation 
 that occurred due to seismic activity.
@@ -50,7 +50,7 @@ in either vertical or horizontal polarization, while the VH/HV polarization mean
 and receives it in another. Each polarization has three subsets, and the data acquisition is carried out across three swaths: IW1, IW2, 
 and IW3, with each swath containing three bands: i (In-phase), q (Quadrature), and intensity.
 
-Co-Registration
+## Co-Registration
 
 Radiometric correction is carried to remove sensor specific effects before the co-registration
 
@@ -62,7 +62,7 @@ This is a crucial step in InSAR because accurate alignment between multiple imag
 which represent surface displacement are computed correctly.
 
 
-Interferometric Phases: Topographic vs. Differential Interferogram
+## Interferometric Phases: Topographic vs. Differential Interferogram
 
 The interferometric phase between a pair of coregistered images contains various components, such as topography, surface deformation, and noise. 
 After coregistering the images, the phase difference between them is used to create an interferogram, which includes both topographic and displacement information.
@@ -77,19 +77,19 @@ To focus on surface displacement, the topographic component is removed, leaving 
 <Image alt="ocean" src="/static/images/OBIA/Differential.jpeg" width={1200} height={800} />
 Differential Interferogram with additional proceesing (multidocking and filtering)
 
-Phase Unwrapping and Generating Displacement
+## Phase Unwrapping and Generating Displacement
 
 To obtain a continuous displacement map, the phase must be "unwrapped." Phase unwrapping converts wrapped values from the interferometric phase into absolute 
 displacement, providing a clearer and more accurate representation of ground motion.
 <Image alt="ocean" src="/static/images/OBIA/Unwrapped.jpeg" width={1200} height={800} />
 Left: Phase Unwrapping vs Right: Displacement
 
-Georeferencing
+## Georeferencing
 
 To make the displacement map usable in other GIS applications, it often needs to be georeferenced. This involves converting from radar coordinates to geographic coordinates (latitude, longitude).
 <Image alt="ocean" src="/static/images/OBIA/Georeferenced.jpeg" width={1200} height={800} />
 
-Conclusion
+## Conclusion
 
 This has been an interesting introduction to SAR processing from a course work from my Master's program. As technology and data availability continue to improve, disaster efforts can become more efficient. 
 The advancement in technology will continue to play a big role to ensure we can properly understand, predict and respond to disasters.

@@ -19,10 +19,11 @@ const projectsData: Project[] = [
   },
 
   {
-    title: 'A beginners guide to RADAR Analysis with SNAP',
-    description: `coming soon`,
-    imgSrc: '/static/images/eo.png',
-    //href: 'https://www.google.com',
+    title: 'OBIA for Estimating Building Density in Refugee Camp',
+    description: `Object-Based Image Analysis (OBIA) is a powerful methodology for extracting meaningful spatial information 
+    from high-resolution imagery to support effective planning and resource allocation`,
+    imgSrc: '/static/images/Paper.png',
+    href: 'https://omowonuola-akintola.github.io/website/blog/OBIA',
   },
 
 

@@ -22,7 +22,7 @@ const projectsData: Project[] = [
     title: 'OBIA for Estimating Building Density in Refugee Camp',
     description: `Object-Based Image Analysis (OBIA) is a powerful methodology for extracting meaningful spatial information 
     from high-resolution imagery to support effective planning and resource allocation`,
-    imgSrc: '/static/images/Paper.png',
+    imgSrc: '/static/images/Paper.jpeg',
     href: 'https://omowonuola-akintola.github.io/website/blog/OBIA',
   },
 

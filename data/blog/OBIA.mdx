@@ -1,0 +1,63 @@
+---
+title: 'Estimating Building Density in Refugee Camp using Object Based Image Analysis (OBIA) Technique'
+date: 2025-03-08T15:32:14Z
+lastmod: '2024-02-01'
+tags: ['eo', 'analysis', 'OBIA', 'refugee camp']
+draft: false
+summary: 'This is a simple poster presentation on a project using OBIA to extract features from high resolution imagery'
+layout: PostSimple
+
+---
+## INTRODUCTION
+
+<Image alt="Kakuma Camp" src="/static/images/Kakuma/Camp.jpeg" width={1200} height={800} />
+Photo Source: [UNHCR](https://www.unhcr.org/ke/kakuma-refugee-camp)
+
+Established in 1992 to provide humanitarian aid during the Sudanese civil war, Kakuma Refugee Camp in Kenya has grown 
+into one of the largest refugee settlements, hosting over 176,000 people from South Sudan, Somalia, and other nations in 
+Sub-Saharan Africa, according to a 2023 UNHCR report. While refugee camps like Kakuma aim to provide shelter and aid, they 
+often expand rapidly and informally, making it challenging to monitor changes through on-the-ground methods.
+
+Object-Based Image Analysis (OBIA) is a powerful methodology for extracting meaningful spatial information from high-resolution imagery
+to support effective planning and resource allocation. 
+
+
+## Methodology
+
+**Data collection and Processing**
+-High-resolution drone imagery from June 2022 was downloaded from [OpenAerialMap](https://openaerialmap.org). OpenAerialMap is an open platform 
+for free drone imagery.
+- The individual image swath was mosaic'd
+
+**Image Segmentation and Classification
+- The image was segmented and training samples collected; building and non-building
+- The K Nearest Neighbor (KNN) algorithm was applied for the classification to extract features from the imagery. The non-building features were discarded.
+
+**Estimating Building Density
+- Buildings were categorized based on distribution using a 1km by 1km grid.
+
+<Image alt="Workflow" src="/static/images/Kakuma/Workflow.jpeg" width={1200} height={800} />
+
+## Result
+The buildings were mapped into high-density, medium-density, and low-density zones.
+
+## Presentation 
+
+The project was presented in a scientific poster format.
+
+<Image alt="Presentation" src="/static/images/Kakuma/Paper.jpeg" width={1200} height={800} />
+
+
+## CONCLUSION
+
+This approach provides a scalable, efficient alternative to building extraction, enabling 
+more effective planning and humanitarian support in refugee settings.
+
+---
+_My Master’s program is in Earth Observation and AI (AI4EO) as part of the Copernicus Masters in Digital Earth_.
+
+<div style={{ display: 'flex', gap: '10px' }}>
+  <Image alt="logo" src="/static/images/Logo/EU.jpg" width={200} height={100} />
+  <Image alt="logo" src="/static/images/Logo/PLUS.jpg" width={200} height={100} />
+  <Image alt="logo" src="/static/images/Logo/UBS.jpeg" width={200} height={100} />
+</div>

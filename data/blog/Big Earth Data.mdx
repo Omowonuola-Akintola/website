@@ -1,0 +1,57 @@
+---
+title: 'Digital Earth: Big Earth Data'
+date: 2025-03-08T15:32:14Z
+lastmod: '2024-02-01'
+tags: ['eo', 'data cubes', 'big data', 'cloud processing']
+draft: true
+summary: 'Exploring the capabilities of new concepts and cloud platforms for big earth data analytics'
+layout: PostSimple
+
+---
+## INTRODUCTION
+
+With the huge amount of satellite imagery captured daily, making sense of Big Earth Data can be overwhelming. To efficiently process and extract
+meaningful insights from imagery spanning over several months is a challenge at the core of modern Earth Observation (EO) analytics.
+
+EO Data Cubes and Cloud computing platforms have emerged as powerful solutions for handling and analyzing large-scale satellite datasets. These platforms 
+allow users to access, process, and visualize geospatial data with ease, making them invaluable for different applications.
+
+## Methodology
+
+**Data collection and Processing**
+-High-resolution drone imagery from June 2022 was downloaded from [OpenAerialMap](https://openaerialmap.org). OpenAerialMap is an open platform 
+for free drone imagery.
+- The individual image swath was mosaic'd
+
+**Image Segmentation and Classification**
+- The image was segmented and training samples collected; building and non-building.
+- K Nearest Neighbor (KNN) algorithm was applied for the classification to extract features from the imagery. Non-building features were discarded.
+
+**Estimating Building Density**
+- Buildings were categorized based on distribution using a **1km by 1km grid**.
+
+<Image alt="Workflow" src="/static/images/Kakuma/Workflow.jpeg" width={1200} height={800} />
+
+## Result
+The buildings were mapped into **high-density**, **medium-density**, and **low-density zones**.
+
+## Presentation 
+
+The project was presented in a scientific poster format.
+
+<Image alt="Presentation" src="/static/images/Kakuma/Paper.jpeg" width={1200} height={800} />
+
+
+## CONCLUSION
+
+This approach provides a scalable, efficient alternative to building extraction, enabling 
+more effective planning and humanitarian support in refugee settings.
+
+---
+_My Master’s program is in Earth Observation and AI (AI4EO) as part of the Copernicus Masters in Digital Earth_.
+
+<div style={{ display: 'flex', gap: '10px' }}>
+  <Image alt="logo" src="/static/images/Logo/EU.jpg" width={200} height={100} />
+  <Image alt="logo" src="/static/images/Logo/PLUS.jpg" width={200} height={100} />
+  <Image alt="logo" src="/static/images/Logo/UBS.jpeg" width={200} height={100} />
+</div>

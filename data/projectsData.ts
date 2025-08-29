@@ -23,7 +23,7 @@ const projectsData: Project[] = [
     potential dam collapse in 2022 and subsequent flooding in September 2024, Sentinel-1 ascending orbit SAR data from July 
     2022 to October 2024 were processed to generate interferograms for the time series analysis. Time-series deformation and 
     velocity maps were generated to detect any precursory ground movements that may have signaled structural instability.`,
-    imgSrc: '/static/images/velocitymap.jpeg',
+    imgSrc: '/static/images/Velocitymap.jpeg',
     href: 'https://github.com/Omowonuola-Akintola/sbas-insar-dam-monitoring',
   },
   

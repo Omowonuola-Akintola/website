@@ -1,0 +1,98 @@
+---
+title: 'Quantifying vulnerability to natural hazards'
+date: 2025-09-22T15:32:14Z
+lastmod: '2024-02-01'
+tags: ['eo', 'disaster', 'workshop']
+draft: false
+summary: ''
+layout: PostSimple
+
+---
+## INTRODUCTION 
+
+<Image alt="ocean" src="/static/images/AI4EO/opening.jpeg" width={1200} height={800} />
+
+The [AI4EO symposium](https://ai4eo2025.irisa.fr) conference was held in Rennes, France from 11- 12 September, 2025. It focused on integrating Artificial
+Intelligence (AI) techniques into Earth Observation (EO), with themes including remote sensing, foundation models, environmental monitoring, and climate change.
+The event was organized by OBELIX team of IRISA and aimed to bring together researchers, domain experts, and technologists to share advances and challenges in 
+applying AI to Earth Observation. The event presented a great opportunity to learn about state-of-the-art AI methods in EO data processing,
+discussing challenges like interpretability and exploring applications for climate monitoring, disaster prediction, land cover mapping, etc.
+
+## Keynote Highlights
+
+### Responsible AI for Earth Observation — Caroline Gevaert
+Caroline Gevaert’s keynote was one of the most thought-provoking sessions for me. She emphasized the importance of responsible AI when applying machine learning to
+Earth observation, especially in contexts where decisions can impact vulnerable communities. Some of the points that stood out were:
+- Human in the loop: AI should not replace decision-makers but guide them. For example, a model might highlight areas that look damaged rather than claiming definitively 
+which houses are destroyed. This helps build trust with users on the ground.
+- Bias in ML: It is mathematically impossible to remove all bias. Instead, the focus should be on defining the user group and understanding the specific type of bias that
+matters in that context. She gave the example of how features in Africa are sometimes poorly represented in training data.
+- Explainable AI exits: Mechanisms to “open up” the model are needed so users can control it and understand how and why it makes predictions.
+- Audience-specific explanations: Explanations should not be one-size-fits-all but must be tailored to the domain and the expertise of the people using the system.
+
+<Image alt="ocean" src="/static/images/AI4EO/keynote.jpeg" width={1200} height={800} />
+
+### Machine Learning for Large-Scale Ecosystem Monitoring — Christian Igel
+
+- Showed how scalable ML can process massive EO streams to monitor ecosystems and biodiversity at continental scales.
+
+### Large Foundation Models and Their Adaptation to Remote Sensing — Maria Vakalopoulou
+- She traced the last decade’s shift from CNN-centric models to Transformer architectures for EO.
+- Named architectures mentioned in the talk (from my notes): Anysat, GeoPlex, Aurora, AlphaEarth.
+- Remote sensing has unique sensors, resolutions, and viewing geometries; foundation models must be adapted carefully rather than copied from generic vision.
+
+### Destination Earth: Building a Digital Replica of the Earth System — Bertrand Le Saux
+- Destination Earth” initiative, which aims to build a digital twin of the planet. This system would integrate multiple EO data streams and AI to support climate simulations and 
+environmental monitoring. The ambition is to create a tool that policymakers and scientists can use to anticipate and respond to global challenges.
+
+<Image alt="ocean" src="/static/images/AI4EO/Destine.jpeg" width={1200} height={800} />
+
+## Poster Sessions I Found Interesting
+
+### Explaining Raw Data Complexity to Improve Satellite Onboard Processing
+
+This research was produced to test whether meaningful inference can be done directly onboard the satellite, with the aim of generating L1 data without relying on full downlink and
+extensive ground processing. To do this, the researchers simulated raw sensor imagery, including noise and compression, and trained an AI model on this simulated raw data so it could
+better reflect on-orbit conditions. I found this interesting because it shows how AI might reduce reliance on heavy ground infrastructure 
+by enabling satellites to deliver usable products directly from orbit.
+
+<Image alt="ocean" src="/static/images/AI4EO/onboard.jpeg" width={1200} height={800} />
+
+### EOS-FM: Can an Ensemble of Specialists Act as a Generalist Feature Extractor?
+
+This work investigated whether combining multiple specialized models into an ensemble foundation model can improve transfer learning across EO tasks. The ensemble included models trained for
+Sentinel-2 land-use/land-cover classification, road segmentation, Landsat landslide detection, and Sentinel-1 ship detection. The results suggested ensembles can act as generalist extractors,
+sometimes outperforming a single large model. I found this interesting because it suggests a practical path toward re-using specialized expertise across sensors and tasks
+
+<Image alt="ocean" src="/static/images/AI4EO/eos.jpeg" width={1200} height={800} />
+
+### Semantic Segmentation of Super-Resolved Sentinel-2 Images for Soil Erosion Studies
+The research addresses a critical challenge within the broader "Soil Erosion Evaluation through Data-driven Solutions" (SEED) project: accurately identifying and mapping different surface types 
+in areas prone to soil erosion using satellite imagery. The SEED project recognizes that current soil erosion quantification tools are inadequate for addressing the complexity of this global environmental 
+problem. Traditional methods lack the spatial detail and temporal resolution needed to assess the landscape features that drive soil-erosion risk. The core technical goal is to develop a high-resolution assessment 
+of soil risk erosion by combining Earth Observation data to classify key surface types including different agricultural lands and urban surfaces. This classification is essential because these surfaces differ in their
+susceptibility to erosion and in how they shape erosion patterns, and they change over time in ways many tools fail to capture.
+
+<Image alt="ocean" src="/static/images/AI4EO/super.jpeg" width={1200} height={800} />
+
+## City Tour
+
+Besides the technical sessions, the conference also included a city tour around Rennes. This gave us a chance to learn about the city’s rich culture and history. We visited historic areas and landmarks and ended the night
+with a wonderful dinner.
+
+<Image alt="ocean" src="/static/images/AI4EO/tour.jpeg" width={1200} height={800} />
+
+
+## Conclusion
+As someone new to the field of AI for Earth Observation, I left the conference with a clearer picture of how the field is evolving and a strong appreciation for the amount of great scientific work being done. It showed me both 
+the technical advances and the responsibility needed to make AI truly useful for society.
+
+
+---
+_My Master’s program is in Earth Observation and AI (AI4EO) as part of the Copernicus Masters in Digital Earth_.
+
+<div style={{ display: 'flex', gap: '10px' }}>
+  <Image alt="logo" src="/static/images/Logo/EU.jpg" width={200} height={100} />
+  <Image alt="logo" src="/static/images/Logo/PLUS.jpg" width={200} height={100} />
+  <Image alt="logo" src="/static/images/Logo/UBS.jpeg" width={200} height={100} />
+</div>

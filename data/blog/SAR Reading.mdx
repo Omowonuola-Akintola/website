@@ -3,7 +3,7 @@ title: "SAR 101: Why do we need Microwave Sensing?"
 date: 2025-08-27T15:32:14Z
 lastmod: '2024-02-01'
 tags: ['eo', 'sar reading', 'radar', 'remote sensing']
-draft: false
+draft: true
 summary: 'Journaling about my SAR Reading'
 layout: PostSimple
 
@@ -47,10 +47,33 @@ $$
 \theta \approx \frac{\lambda}{D}
 $$
 
-### Footer
+- 2 objects on the ground have physical distance
+- Angular separation is the angle formed between an observer to 2 objects. It's measured in degrees or radians.
+- If an observer is closer to the 2 objects, the angular seperation will be large and small if otherwise, even though the physical distance between the objects hasn't changed.
+- In a camera, focal length does is determine how that angle maps onto the sensor. A longer focal length spreads a given angle across more of the sensor (more pixels), making 
+it easier to see the separation. A shorter focal length compresses the same angle into fewer pixels.
+
+**will come back to how this map to radar resolution another time**
+
 - Short bands have higher resolution
 - X band have the best combination for space borne sensors, they penetrate the atmospher at 99% under normal condition.
 
+## Radar Imaging
 
+- Signals are released towards the ground and the strength of the echo and the time it took for the signal to travel to the ground and back is measured.
+- This signal is emitted from a radar antenna, with the transmitter and receiver on the same antenna.  It is possible for them to also be sepperate.
+- The strength of the signal corresponds to the pixel brightness and the time gives range information
+- Radar imaging is a specific application of microwave sensing where an image of the ground is built based on the returned echoes.
 
+### Simple analogy
 
+***You throw a ball to three people***
+
+Imagine you're standing in a field. Three people are standing in front of you at different distances: one close, one medium, one far. You throw a ball to each of them and they immediately throw it back.
+The ball to the close person comes back quickly. The ball to the medium person takes longer. The ball to the far person takes the longest.
+If you time how long each ball takes to return, you know how far away each person is. This is the basic principle of radar: send out a signal, measure the time it takes to come back, and calculate distance.
+
+-This distance is called the range, remember this as it will be useful in the next part.
+-If the antenna is on an aircraft and sends a signal straight down, flat ground will return the signal at the same time because all points are the same distance from it. To solve this, radar imaging must be 
+side looking. This way, objects are at different positions and their signals return at different times. 
+- Objects can have different range value.

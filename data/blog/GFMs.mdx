@@ -3,7 +3,7 @@ title: 'What Do Geospatial Foundation Model Embeddings Actually Encode?. I Ran a
 date: 2026-02-28T15:32:14Z
 lastmod: '2026-02-01'
 tags: ['eo', 'AI', 'foundation models']
-draft: true
+draft: false
 summary: ''
 layout: PostSimple
 
@@ -37,66 +37,88 @@ but are more expensive to compute and store. For example,
 
 For a single image, that process repeats across every patch in the image producing hundreds of these 1024-dimensional vectors, one per patch. This is what is called a patch-level embedding. 
 
-To get a single representation for the whole image, these patch vectors are averaged together into one 1024-dimensional vector. This is called **average pooling**, and the result is what we 
+To get a single representation for each image, these patch vectors are averaged together into one 1024-dimensional vector. This is called **average pooling**, and the result is what we 
 call a **scene-level embedding**. It keeps only the overall spectral character of image. This single point in embedding space that summarises what the model saw across the entire image.
 
-To make it a bit more clearer, lets look at how on embeddings are generated using the Prithvi model.
+To make it a bit more clearer, lets look at how embeddings are generated using a simplified Prithvi 300M model as an example.
 
 ## How embeddings are generated
 
-To generate embeddings using, each input image is divided into non-overlapping 16×16 pixel patches. For a 224×224 pixel image, this produces a 14×14 grid of patches with 196 patches in total. 
+To generate embeddings, each input image is divided into non-overlapping 16×16 pixel patches. For a 224×224 pixel image, this produces a 14×14 grid of patches with 196 patches in total. 
 Each patch is then linearly projected into a token, a fixed-length vector that serves as the input to the transformer model. The output is one 1024-dimensional embedding vector per patch with the total embedding
 196 x 1024.
 
 <Image alt="patch" src="/static/images/gfms/patch.jpg" width={1200} height={800} />
-
+                              _Patch level embeddings_
+            
 ## Visualising patch-level embeddings
 
-A 1024-dimensional vector is impossible to look at directly. To visualise patch embeddings spatially, a common approach is to take all the patch vectors for an image, project them using PCA, and map them to RGB colour. Each patch is then
-placed back in its original grid position in the image, giving you a colour for every patch location. The result is a low-resolution colour grid, one coloured square per 16×16 patch, where patches with similar embeddings appear as similar 
-colours. If the model has learned to distinguish surface types within a scene, you would expect to see coherent colour regions that roughly correspond to coherent land cover regions in the original image.
-
-PCA compressesion inevitably loses information. So a noisy or incoherent colour grid does not necessarily mean the embeddings are meaningless, and a clean colour grid does not necessarily mean they are rich. It is usually a useful first look.
+A 1024-dimensional patch embedding is impossible to visualize. A common approach is to take all the patch embeddings for an image, apply PCA to reduce them to 3 dimensions, and map these to RGB channels. Each patch is then
+placed back into its original grid position in the image, producing a low-resolution color map where patches with similar embeddings appear as similar colors. This is a standard way to probe the structure of patch-level 
+representations. Many models use this kind of visualization to show how learned features organize spatially across an image. When the representation is well structured, similar regions often appear in similar colours. However, 
+PCA is only a compressed projection of a high-dimensional space. If the result looks noisy, it doesn’t necessarily mean the embeddings lack meaning, it may simply reflect how the variance is distributed in the feature space.
 
 ## Visualizing scene level embeddings 
 
-To find groupings in the embedding space I used **k-means clustering**, which separates the 100 scene vectors into k clusters based on their position in the full 1024-dimensional space. To decide how many clusters to use, I computed the **silhouette score** 
+To find groupings in the embedding space I used **k-means clustering**, which separates the 100 scene embeddings into k clusters based on their position in the full 1024-dimensional space. To decide how many clusters to use, I computed the **silhouette score** 
 for different values of k. As described in the [machine learning mastery blog](https://machinelearningmastery.com/k-means-cluster-evaluation-with-silhouette-analysis/), the silhouette score quantifies how similar each point is to its own cluster compared to 
 other clusters. It ranges from -1 to 1, where a score close to 1 means clusters are dense and well-separated, a score near 0 means they overlap, and a negative score suggests a point may have been assigned to the wrong cluster. Running k-means for K=2 through K=10, 
 K=3 produced the highest silhouette score of 0.441, with scores declining steadily beyond that. However, when I visualised the results at K=4 which scored 0.402  the clusters revealed a more semantically meaningful separation. This illustrates a known limitation of
 the silhouette score. A metric tells you something about the shape of the embedding space, but only looking at the actual images tells you whether the groupings make sense.
 
 <Image alt="ocean" src="/static/images/gfms/sil.jpeg" width={1200} height={800} />
+    _Silhouette score for different k cluster grouping_
 
-To visualise the cluster assignments I used **t-SNE** (t-distributed Stochastic Neighbor Embedding), one of the most widely used techniques for visualising high-dimensional data. As Wattenberg, Viégas and Johnson explain in [*How to Use t-SNE Effectively*](https://distill.pub/2016/misread-tsne/),
+To visualise the cluster, I used **t-SNE** (t-distributed Stochastic Neighbor Embedding), one of the most widely used techniques for visualising high-dimensional data. As Wattenberg, Viégas and Johnson explain in [*How to Use t-SNE Effectively*](https://distill.pub/2016/misread-tsne/),
 t-SNE works by measuring the similarity between data points in the high-dimensional space and representing those similarities as probabilities, then constructing a matching probability distribution in 2D that minimises the difference between the two. Points that were close together in 1024 dimensions 
-tend to stay close in the plot, and points that were far apart tend to stay separated. The result is a 2D scatter plot where each point is one scene, and the cluster assignments from k-means are colour-coded onto the plot.
+tend to stay close in the plot, and points that were far apart tend to stay separated. The result is a 2D scatter plot where each point is one scene, and the cluster grouping from k-means are colour-coded onto the plot.
 
-That said, the same article is clear about what t-SNE cannot do. Distances between well-separated clusters in the plot may mean nothing. t-SNE is a visualisation tool, not an analysis tool. The clustering that matters happens in the full 1024-dimensional space, and t-SNE just makes it visible.
+<Image alt="tsne" src="/static/images/gfms/tsne.jpeg" width={1200} height={800} />
 
-<Image alt="ocean" src="/static/images/gfms/tsne.jpeg" width={1200} height={800} />
+## Visualizing the grouping
 
-### EOS-FM: Can an Ensemble of Specialists Act as a Generalist Feature Extractor?
+As seen in the plot above, each point represents one scene and the colours indicate the cluster group obtained from k-means (with k=4). Some clusters form compact and well-separated groups, particularly cluster 2 in the top-right and cluster 3 in the bottom-left. This suggests that the embeddings 
+contain meaningful structure: scenes that are close in feature space tend to group together. At the same time, some overlap between clusters is visible.
 
-This work investigated whether combining multiple specialized models into an ensemble foundation model can improve transfer learning across EO tasks. The ensemble included models trained for
-Sentinel-2 land-use/land-cover classification, road segmentation, Landsat landslide detection, and Sentinel-1 ship detection. The results suggested ensembles can act as generalist extractors,
-sometimes outperforming a single large model. I found this interesting because it suggests a practical path toward re-using specialized expertise across sensors and tasks
+To understand what these clusters actually represent, I visualised the images within each cluster side by side. The t-SNE plot shows geometric structure, but only the images themselves reveal whether that structure corresponds to something semantically meaningful.
 
-<Image alt="ocean" src="/static/images/AI4E0/eos.jpeg" width={1200} height={800} />
+Cluster 3, the most clearly separated group, contained 11 scenes showing water. Although the scenes varied in appearance,the model consistently grouped them together. Water has a strong and distinctive spectral signature, and the embeddings appear to capture that signal reliably.
 
-### Semantic Segmentation of Super-Resolved Sentinel-2 Images for Soil Erosion Studies
-The research addresses a critical challenge within the broader "Soil Erosion Evaluation through Data-driven Solutions" (SEED) project: accurately identifying and mapping different surface types 
-in areas prone to soil erosion using satellite imagery. The SEED project recognizes that current soil erosion quantification tools are inadequate for addressing the complexity of this global environmental 
-problem. Traditional methods lack the spatial detail and temporal resolution needed to assess the landscape features that drive soil-erosion risk. The core technical goal is to develop a high-resolution assessment 
-of soil risk erosion by combining Earth Observation data to classify key surface types including different agricultural lands and urban surfaces. This classification is essential because these surfaces differ in their
-susceptibility to erosion and in how they shape erosion patterns, and they change over time in ways many tools fail to capture.
+<Image alt="cluster3" src="/static/images/gfms/cluster3.jpg" width={1200} height={800} />
 
+Cluster 2 contained 17 scenes dominated by arid and semi-arid landscapes, such as desert, dry scrubland, bare soil, and sparse vegetation. These surfaces share similar spectral properties, which likely explains their grouping.
+
+<Image alt="cluster3" src="/static/images/gfms/cluster2.jpg" width={1200} height={800} />
+
+Scene 74 provides an interesting example. Visually, the imagery looks somewhat degraded compared to the other examples in the cluster, which may influence its embedding. Variations in image quality can subtly shift a scene’s position in feature space. Because of that, it makes sense that the model 
+places it near those other scenes in the t-SNE plot. The clustering algorithm assigns it to the arid group, but the embedding suggests it also resembles scenes from the neighboring category.
+
+The remaining two clusters were less cleanly separated. Both included a mix of vegetated and urban scenes, with noticeable overlap. Urban areas that contain trees and parks share spectral similarities with vegetated landscapes, making clear separation more difficult. 
+This was also visible in the t-SNE plot, where those clusters appeared closer together, suggesting weaker separation in the full 1024-dimensional embedding space.
+
+Cluster 0
+<Image alt="cluster0" src="/static/images/gfms/cluster0.jpg" width={1200} height={800} />
+
+Cluster 1
+<Image alt="cluster1" src="/static/images/gfms/cluster.jpg" width={1200} height={800} />
+
+## What this tells us about what foundation models learn
+
+This experiment suggests that Prithvi’s pretraining produces representations that encode broad spectral categories. Water looks like water, regardless of where it appears. Desert looks like desert. These surface types have strong and consistent spectral signatures across the training distribution, and 
+the model appears to capture that regularity in its embedding space. However, finer distinctions such as, separating urban areas from vegetated regions,are less clean. Urban environments often include trees, parks, and mixed surfaces that share spectral similarities with natural landscapes. Without 
+supervision, the model does not always separate these subtle categories clearly.
+
+In other words, pretraining provides a strong structural foundation. It captures dominant and globally consistent patterns in the data. But distinguishing more nuanced or overlapping categories may require task-specific supervision or fine-tuning.
 <Image alt="ocean" src="/static/images/AI4E0/super.jpeg" width={1200} height={800} />
 
-## City Tour
+## What this means in practice
 
-Besides the technical sessions, the conference also included a city tour around Rennes. This gave us a chance to learn about the city’s rich culture and history. We visited historic areas and landmarks and ended the night
-with a wonderful dinner.
+If you're considering using Prithvi for a downstream task, this experiment highlights a few things worth knowing before you start fine-tuning.
+The scene-level representations are meaningful and appear to transfer. If your task involves broad land cover categories with distinctive spectral signatures such as water detection, the pretrained embeddings are already doing substantial work. In these cases, a lightweight classifier 
+on top of frozen embeddings may be sufficient.
+
+However, if your task requires distinguishing spectrally ambiguous classes —such as urban versus vegetation, or different crop types, fine-tuning will likely be necessary. The pretrained representations capture dominant surface characteristics, but they do not automatically separate subtle or 
+overlapping categories without labeled supervision.
 
 <Image alt="ocean" src="/static/images/AI4E0/tour.jpeg" width={1200} height={800} />
 

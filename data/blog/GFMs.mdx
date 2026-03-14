@@ -3,7 +3,7 @@ title: 'What Do Geospatial Foundation Model Embeddings Actually Encode?. I Ran a
 date: 2026-02-28T15:32:14Z
 lastmod: '2026-02-01'
 tags: ['eo', 'AI', 'foundation models']
-draft: true
+draft: false
 summary: ''
 layout: PostSimple
 
@@ -17,7 +17,6 @@ should cluster together. If they're not, the clusters should be arbitrary.
 
 One important caveat upfront: Prithvi was trained on HLS data at 30m resolution. HLS is a harmonized product that composites Landsat and Sentinel-2.
 I ran this experiment on native Sentinel-2 L2A at 10m. This matters, and I'll come back to it.
-
 
 ## What are embeddings?
 
@@ -105,28 +104,17 @@ Cluster 1
 ## What this tells us about what foundation models learn
 
 This experiment suggests that Prithvi’s pretraining produces representations that encode broad spectral categories. Water looks like water, regardless of where it appears. Desert looks like desert. These surface types have strong and consistent spectral signatures across the training distribution, and 
-the model appears to capture that regularity in its embedding space. However, finer distinctions such as, separating urban areas from vegetated regions,are less clean. Urban environments often include trees, parks, and mixed surfaces that share spectral similarities with natural landscapes. Without 
+the model appears to capture that regularity in its embedding space. However, finer distinctions such as, separating urban areas from vegetated regions are less clean. Urban environments often include trees, parks, and mixed surfaces that share spectral similarities with natural landscapes. Without 
 supervision, the model does not always separate these subtle categories clearly.
-
-In other words, pretraining provides a strong structural foundation. It captures dominant and globally consistent patterns in the data. But distinguishing more nuanced or overlapping categories may require task-specific supervision or fine-tuning.
-<Image alt="ocean" src="/static/images/AI4E0/super.jpeg" width={1200} height={800} />
 
 ## What this means in practice
 
-If you're considering using Prithvi for a downstream task, this experiment highlights a few things worth knowing before you start fine-tuning.
-The scene-level representations are meaningful and appear to transfer. If your task involves broad land cover categories with distinctive spectral signatures such as water detection, the pretrained embeddings are already doing substantial work. In these cases, a lightweight classifier 
-on top of frozen embeddings may be sufficient.
+While the scene-level embeddings look good when we examine the cluster groupings, the PCA from the patch level did not give the desired result. My observation is that this is either a problem with the way the PCA was done or the resolution mismatch. This remains an open question worth investigating further. 100 
+scenes is enough to explore the method, but not enough to draw strong conclusions. A larger and more diverse sample across different land cover types would likely produce more stable clusters and more reliable patterns. This experiment shows that pre-trained embeddings carry real signal at the scene level. The model
+was able to distinguish broad land cover categories without any labeled data or fine-tuning, which is a useful baseline for anyone considering using Prithvi for a downstream task.
 
-However, if your task requires distinguishing spectrally ambiguous classes —such as urban versus vegetation, or different crop types, fine-tuning will likely be necessary. The pretrained representations capture dominant surface characteristics, but they do not automatically separate subtle or 
+However, if your task requires distinguishing spectrally ambiguous classes such as urban versus vegetation, or different crop types, fine-tuning will likely be necessary. The pretrained representations capture dominant surface characteristics, but they do not automatically separate subtle or 
 overlapping categories without labeled supervision.
-
-<Image alt="ocean" src="/static/images/AI4E0/tour.jpeg" width={1200} height={800} />
-
-
-## Conclusion
-As someone new to the field of AI for Earth Observation, I left the conference with a clearer picture of how the field is evolving and a strong appreciation for the amount of great scientific work being done. It showed me both 
-the technical advances and the responsibility needed to make AI truly useful for society.
-
 
 ---
 _My Master’s program is in Earth Observation and AI (AI4EO) as part of the Copernicus Masters in Digital Earth_.

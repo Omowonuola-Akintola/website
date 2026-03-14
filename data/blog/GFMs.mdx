@@ -1,5 +1,5 @@
 ---
-title: 'What Do Geospatial Foundation Model Embeddings Actually Encode?. I Ran an Experiment'
+title: 'What Do Geospatial Foundation Model Embeddings Actually Encode? I Ran an Experiment'
 date: 2026-02-28T15:32:14Z
 lastmod: '2026-02-01'
 tags: ['eo', 'AI', 'foundation models']
@@ -49,7 +49,7 @@ Each patch is then linearly projected into a token, a fixed-length vector that s
 196 x 1024.
 
 <Image alt="patch" src="/static/images/gfms/patch.jpg" width={1200} height={800} />
-_A simple demonstration of an image generating a patch level embedding. Image is for demonstration purpose only_
+_A simple demonstration of an image generating a patch-level embedding. Image is for demonstration purpose only._
 
 What makes Prithvi different from a standard vision model is that it also encodes time and location alongside the image patches. The "tl" in Prithvi-EO-2.0-300M-tl stands for temporal and location, meaning the model
 processes multiple images across different time steps together, where each image is divided into patches and stacked along the time dimension. This allows the model to learn how the same location changes over time, which is 
@@ -63,8 +63,7 @@ representations. Many models use this kind of visualization to show how learned 
 PCA is only a compressed projection of a high-dimensional space. A noisy result does not necessarily mean the embeddings lack meaning, though it is worth investigating why.
 
 <Image alt="patch" src="/static/images/gfms/pca.jpeg" width={1200} height={800} />
-_A noisy PCA visualization from the experiment. My hypothesis is that this is a result of how the PCA was applied_
-
+_A noisy PCA visualization from the experiment. My hypothesis is that this is a result of how the PCA was applied._
 
 ## Visualizing scene level embeddings 
 
@@ -75,14 +74,14 @@ K=3 produced the highest silhouette score of 0.441, with scores declining steadi
 the silhouette score. A metric tells you something about the shape of the embedding space, but only looking at the actual images tells you whether the groupings make sense.
 
 <Image alt="ocean" src="/static/images/gfms/sil.jpeg" width={1200} height={800} />
-    _Silhouette score for different k cluster grouping_
+_Silhouette score for different k cluster grouping._
 
 To visualise the cluster, I used **t-SNE** (t-distributed Stochastic Neighbor Embedding), one of the most widely used techniques for visualising high-dimensional data. As Wattenberg, Viégas and Johnson explain in [*How to Use t-SNE Effectively*](https://distill.pub/2016/misread-tsne/),
 t-SNE works by measuring the similarity between data points in the high-dimensional space and representing those similarities as probabilities, then constructing a matching probability distribution in 2D that minimises the difference between the two. Points that were close together in 1024 dimensions 
 tend to stay close in the plot, and points that were far apart tend to stay separated. The result is a 2D scatter plot where each point is one scene, and the cluster grouping from k-means are colour-coded onto the plot.
 
 <Image alt="tsne" src="/static/images/gfms/tsne.jpeg" width={1200} height={800} />
-_tsne plots_
+_tsne plot for the scene-level embedding._
 
 ## Visualizing the grouping
 
@@ -102,6 +101,7 @@ Cluster 2 contained 17 scenes dominated by arid and semi-arid landscapes, such a
 Scene 74 is an interesting example. Although the clustering algorithm assigned it to Cluster 2, its position in the t-SNE plot places it closer to Cluster 1, suggesting that its embedding shares characteristics with both groups. The image quality appears somewhat degraded compared to other scenes in the cluster, which may have subtly shifted its position in the feature space 
 toward the boundary between the two clusters.
 
+<Image alt="cluster3" src="/static/images/gfms/scene74.jpeg" width={1200} height={800} />
 
 The remaining two clusters are less cleanly separated. Both includes a mix of vegetated and urban scenes, with noticeable overlap. Urban areas that contain trees and parks share spectral similarities with vegetated landscapes, making clear separation more difficult. This was also visible in the t-SNE plot, where those clusters appeared closer together, suggesting weaker separation.
 
@@ -125,5 +125,3 @@ was able to distinguish broad land cover categories without any labeled data or 
 
 However, if your task requires distinguishing spectrally ambiguous classes such as urban versus vegetation, or different crop types, fine-tuning will likely be necessary. The pretrained representations capture dominant surface characteristics, but they do not automatically separate subtle or 
 overlapping categories without labeled supervision.
-
----

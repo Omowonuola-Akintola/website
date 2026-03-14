@@ -11,7 +11,7 @@ layout: PostSimple
 ## The experiment
 
 The setup is simple by design. I took 100 Sentinel-2 scenes from a sample subset of the SSL4EO-S12 dataset provided by the authors. 
-The data contains four seasonal timestamps each, no labels. I ran them through Prithvi-EO-2.0-300M tl with no fine-tuning, extracted 
+The data contains four seasonal timestamps each, no labels. I ran them through Prithvi-EO-2.0-300M-tl with no fine-tuning, extracted 
 the embeddings, pooled them to one vector per scene, and clustered. If the embeddings are meaningful, scenes with similar information 
 should cluster together. If they're not, the clusters should be arbitrary.
 
@@ -20,9 +20,10 @@ I ran this experiment on native Sentinel-2 L2A at 10m. This matters, and I'll co
 
 ## What are embeddings?
 
-Geospatial foundation models like Prithvi are large neural networks pretrained on massive amounts of satellite imagery. The idea behind pretraining is that 
-a model that has seen enough diverse imagery will learn general-purpose representations of what Earth's surface looks like, which can then be adapted to specific
-tasks like flood mapping or crop classification with relatively little labeled data.
+Geospatial foundation models like Prithvi are large neural networks pretrained on massive amounts of satellite imagery. This is done through self-supervised 
+learning (SSL), where the model learns from the data itself without requiring labeled examples. The idea behind pretraining is that a model that has 
+seen enough diverse imagery will learn general-purpose representations of what Earth's surface looks like, which can then be adapted to specific tasks 
+like flood mapping or crop classification with relatively little labeled data.
 
 The key output of that pretraining is an **embedding,** a compact numerical vector that summarises what the model has learned about a given image. You can think of it as 
 the model's internal description of the image. If the model has learned something meaningful, images that share underlying characteristics should produce embeddings that are 
@@ -34,10 +35,10 @@ but are more expensive to compute and store. For example,
 - **Prithvi-EO-2.0-300M** — 1024 dimensions
 - **Prithvi-EO-2.0-600M** — 1280 dimensions
 
-For a single image, that process repeats across every patch in the image producing hundreds of these 1024-dimensional vectors, one per patch. This is what is called a patch-level embedding. 
+For a single image, that process repeats across every patch in the image producing hundreds of these 1024-dimensional vectors, one per patch. This is what is called a **patch-level embedding**. 
 
 To get a single representation for each image, these patch vectors are averaged together into one 1024-dimensional vector. This is called **average pooling**, and the result is what we 
-call a **scene-level embedding**. It keeps only the overall spectral character of image. This single point in embedding space that summarises what the model saw across the entire image.
+call a **scene-level embedding**. This single point in embedding space that summarises what the model saw across the entire image.
 
 To make it a bit more clearer, lets look at how embeddings are generated using a simplified Prithvi 300M model as an example.
 
@@ -48,14 +49,22 @@ Each patch is then linearly projected into a token, a fixed-length vector that s
 196 x 1024.
 
 <Image alt="patch" src="/static/images/gfms/patch.jpg" width={1200} height={800} />
-                              _Patch level embeddings_
+_A simple demonstration of an image generating a patch level embedding. Image is for demonstration purpose only_
+
+What makes Prithvi different from a standard vision model is that it also encodes time and location alongside the image patches. The "tl" in Prithvi-EO-2.0-300M-tl stands for temporal and location, meaning the model
+processes multiple images across different time steps together, where each image is divided into patches and stacked along the time dimension. This allows the model to learn how the same location changes over time, which is 
+particularly useful for tasks where seasonal patterns matter. This is why Prithvi is good when you have multi-temporal imagery and want to use a pretrained model.
             
 ## Visualising patch-level embeddings
 
 A 1024-dimensional patch embedding is impossible to visualize. A common approach is to take all the patch embeddings for an image, apply PCA to reduce them to 3 dimensions, and map these to RGB channels. Each patch is then
 placed back into its original grid position in the image, producing a low-resolution color map where patches with similar embeddings appear as similar colors. This is a standard way to probe the structure of patch-level 
 representations. Many models use this kind of visualization to show how learned features organize spatially across an image. When the representation is well structured, similar regions often appear in similar colours. However, 
-PCA is only a compressed projection of a high-dimensional space. If the result looks noisy, it doesn’t necessarily mean the embeddings lack meaning, it may simply reflect how the variance is distributed in the feature space.
+PCA is only a compressed projection of a high-dimensional space. A noisy result does not necessarily mean the embeddings lack meaning, though it is worth investigating why.
+
+<Image alt="patch" src="/static/images/gfms/pca.jpeg" width={1200} height={800} />
+_A noisy PCA visualization from the experiment. My hypothesis is that this is a result of how the PCA was applied_
+
 
 ## Visualizing scene level embeddings 
 
@@ -73,6 +82,7 @@ t-SNE works by measuring the similarity between data points in the high-dimensio
 tend to stay close in the plot, and points that were far apart tend to stay separated. The result is a 2D scatter plot where each point is one scene, and the cluster grouping from k-means are colour-coded onto the plot.
 
 <Image alt="tsne" src="/static/images/gfms/tsne.jpeg" width={1200} height={800} />
+_tsne plots_
 
 ## Visualizing the grouping
 
@@ -81,7 +91,7 @@ contain meaningful structure: scenes that are close in feature space tend to gro
 
 To understand what these clusters actually represent, I visualised the images within each cluster side by side. The t-SNE plot shows geometric structure, but only the images themselves reveal whether that structure corresponds to something semantically meaningful.
 
-Cluster 3, the most clearly separated group, contained 11 scenes showing water. Although the scenes varied in appearance,the model consistently grouped them together. Water has a strong and distinctive spectral signature, and the embeddings appear to capture that signal reliably.
+Cluster 3, the most clearly separated group, contained 11 scenes showing water. Although the scenes varied in appearance,the model consistently grouped them together. Water has a strong and distinctive spectral signature which is why it is one of the easiest land cover types for model to identify and seperate, and the embeddings appear to capture that signal reliably.
 
 <Image alt="cluster3" src="/static/images/gfms/cluster3.jpg" width={1200} height={800} />
 
@@ -89,11 +99,11 @@ Cluster 2 contained 17 scenes dominated by arid and semi-arid landscapes, such a
 
 <Image alt="cluster3" src="/static/images/gfms/cluster2.jpg" width={1200} height={800} />
 
-Scene 74 provides an interesting example. Visually, the imagery looks somewhat degraded compared to the other examples in the cluster, which may influence its embedding. Variations in image quality can subtly shift a scene’s position in feature space. Because of that, it makes sense that the model 
-places it near those other scenes in the t-SNE plot. The clustering algorithm assigns it to the arid group, but the embedding suggests it also resembles scenes from the neighboring category.
+Scene 74 is an interesting example. Although the clustering algorithm assigned it to Cluster 2, its position in the t-SNE plot places it closer to Cluster 1, suggesting that its embedding shares characteristics with both groups. The image quality appears somewhat degraded compared to other scenes in the cluster, which may have subtly shifted its position in the feature space 
+toward the boundary between the two clusters.
 
-The remaining two clusters were less cleanly separated. Both included a mix of vegetated and urban scenes, with noticeable overlap. Urban areas that contain trees and parks share spectral similarities with vegetated landscapes, making clear separation more difficult. 
-This was also visible in the t-SNE plot, where those clusters appeared closer together, suggesting weaker separation in the full 1024-dimensional embedding space.
+
+The remaining two clusters are less cleanly separated. Both includes a mix of vegetated and urban scenes, with noticeable overlap. Urban areas that contain trees and parks share spectral similarities with vegetated landscapes, making clear separation more difficult. This was also visible in the t-SNE plot, where those clusters appeared closer together, suggesting weaker separation.
 
 Cluster 0
 <Image alt="cluster0" src="/static/images/gfms/cluster0.jpg" width={1200} height={800} />
@@ -117,10 +127,3 @@ However, if your task requires distinguishing spectrally ambiguous classes such 
 overlapping categories without labeled supervision.
 
 ---
-_My Master’s program is in Earth Observation and AI (AI4EO) as part of the Copernicus Masters in Digital Earth_.
-
-<div style={{ display: 'flex', gap: '10px' }}>
-  <Image alt="logo" src="/static/images/Logo/EU.jpg" width={200} height={100} />
-  <Image alt="logo" src="/static/images/Logo/PLUS.jpg" width={200} height={100} />
-  <Image alt="logo" src="/static/images/Logo/UBS.jpeg" width={200} height={100} />
-</div>

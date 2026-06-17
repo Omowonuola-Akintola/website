@@ -7,6 +7,27 @@ interface Project {
 
 const projectsData: Project[] = [
 
+  {
+    title: 'ICPR 2026 Contest: Beyond Visible Spectrum: AI for Agriculture 2026 Task: Boosting automatic crop disease classification using Sentinel-2 satellite imagery and self-supervised learning (SSL)',
+    description: `This project focuses on automatic crop disease classification from multispectral Sentinel-2 data. The challenge is to extract meaningful features from limited labeled data, using unlabeled satellite imagery using self-supervised learning, and evaluating downstream classification performance.`,
+    imgSrc: '/static/images/icpr.jpeg',
+    href: 'https://github.com/Omowonuola-Akintola/ICPR-Contest-2026',
+  },
+
+  {
+    title: 'Deep Learning–Based Ship Detection in SAR Imagery',
+    description: `Detecting ships in SAR images using deep learning models for improved maritime monitoring and surveillance.`,
+    imgSrc: '/static/images/shipdet.jpeg',
+    href: 'https://github.com/Omowonuola-Akintola/Ship_Detection_DeepLearning',
+  },
+
+  {
+    title: 'Modeling Earthquake Damage using Machine Learning',
+    description: `Based on aspects of building location and construction, the goal is to predict the level of damage to buildings caused by the 2015 Gorkha earthquake in Nepal..`,
+    imgSrc: '/static/images/earthquake.jpeg',
+    href: 'https://github.com/Omowonuola-Akintola/richters-predictor-modeling-earthquake-damage',
+  },
+
 
   {
     title: 'Sar Superpixel Classification',

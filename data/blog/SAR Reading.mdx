@@ -1,13 +1,13 @@
 ---
-title: "SAR 101: Why do we need Microwave Sensing?"
+title: 'SAR 101: Why do we need Microwave Sensing?'
 date: 2025-08-27T15:32:14Z
 lastmod: '2024-02-01'
-tags: ['eo', 'sar reading', 'radar', 'remote sensing']
+tags: ['eo', 'sar reading', 'radar', 'remote sensing', 'activities']
 draft: false
 summary: 'Journaling about my SAR Reading'
 layout: PostSimple
-
 ---
+
 Definition:
 
 Microwave Sensing : A sort of process where we use the electromagnetic wavelengths with microwave energy to
@@ -19,7 +19,7 @@ Synthetic Aperture Radar (SAR) : ??
 
 ## Introduction
 
-This is an informal writing and personal notes as I read through 'The Essential of SAR' By Thomas P. Ager. I started 
+This is an informal writing and personal notes as I read through 'The Essential of SAR' By Thomas P. Ager. I started
 scribbling some notes in the paper back but for some reasons decided to make them digital. I am sensing this is the best way to stay consistent
 with reading.
 
@@ -27,12 +27,13 @@ with reading.
 
 - Earth presents major obstacles for satellites: cloud, darkness, with the polar region having ones that lasts for months, atmospheric gases (Water Vapor, CO2), atmospheric particles(smog, dust).
 
-## How 
+## How
 
 In remote sensing, what to consider is how different wavelength of the electromagnetic spectrum interact with the Earth’s atmosphere.
+
 - Optical and thermal sensors only work in certain “windows”, where the atmosphere does not absorb too much.
 - The main usable window is between 0.4 and 14 µm. Sentinel 2 uses range between 0.44–2.2 µm and Landsat uses 0.4–12 µm, both are placed within
-clear atmospheric windows.
+  clear atmospheric windows.
 - Outside this range, absorption by water vapor and other gases is so strong that optical and thermal sensing becomes impossible, even if there are no clouds.
 - This is why we need to use longer wavelengths (microwaves), which can pass through clouds, darkness, and most atmospheric gases.
 - Microwave's range in the spectrum is between 1mm to 30 centimeter and SAR missions cover ~2.5 cm (X-band) to ~100 cm (P-band).
@@ -41,7 +42,7 @@ clear atmospheric windows.
 
 This can only make sense when we try to understand how camera works and specific terms like focal length, field of view. I am not sure how deep I want to go yet.
 
-But for now, the angular resolution is roughly equal to the wavelength divided by the size of the lens(antenna for SAR). 
+But for now, the angular resolution is roughly equal to the wavelength divided by the size of the lens(antenna for SAR).
 
 $$
 \theta \approx \frac{\lambda}{D}
@@ -50,8 +51,8 @@ $$
 - 2 objects on the ground have physical distance
 - Angular separation is the angle formed between an observer to 2 objects. It's measured in degrees or radians.
 - If an observer is closer to the 2 objects, the angular seperation will be large and small if otherwise, even though the physical distance between the objects hasn't changed.
-- In a camera, focal length does is determine how that angle maps onto the sensor. A longer focal length spreads a given angle across more of the sensor (more pixels), making 
-it easier to see the separation. A shorter focal length compresses the same angle into fewer pixels.
+- In a camera, focal length does is determine how that angle maps onto the sensor. A longer focal length spreads a given angle across more of the sensor (more pixels), making
+  it easier to see the separation. A shorter focal length compresses the same angle into fewer pixels.
 
 **will come back to how this map to radar resolution another time**
 
@@ -61,19 +62,20 @@ it easier to see the separation. A shorter focal length compresses the same angl
 ## Radar Imaging
 
 - Signals are released towards the ground and the strength of the echo and the time it took for the signal to travel to the ground and back is measured.
-- This signal is emitted from a radar antenna, with the transmitter and receiver on the same antenna.  It is possible for them to also be sepperate.
+- This signal is emitted from a radar antenna, with the transmitter and receiver on the same antenna. It is possible for them to also be sepperate.
 - The strength of the signal corresponds to the pixel brightness and the time gives range information
 - Radar imaging is a specific application of microwave sensing where an image of the ground is built based on the returned echoes.
 
 ### Simple analogy
 
-***You throw a ball to three people***
+**_You throw a ball to three people_**
 
 Imagine you're standing in a field. Three people are standing in front of you at different distances: one close, one medium, one far. You throw a ball to each of them and they immediately throw it back.
 The ball to the close person comes back quickly. The ball to the medium person takes longer. The ball to the far person takes the longest.
 If you time how long each ball takes to return, you know how far away each person is. This is the basic principle of radar: send out a signal, measure the time it takes to come back, and calculate distance.
 
 -This distance is called the range, remember this as it will be useful in the next part.
--If the antenna is on an aircraft and sends a signal straight down, flat ground will return the signal at the same time because all points are the same distance from it. To solve this, radar imaging must be 
-side looking. This way, objects are at different positions and their signals return at different times. 
+-If the antenna is on an aircraft and sends a signal straight down, flat ground will return the signal at the same time because all points are the same distance from it. To solve this, radar imaging must be
+side looking. This way, objects are at different positions and their signals return at different times.
+
 - Objects can have different range value.

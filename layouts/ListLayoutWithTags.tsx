@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -72,7 +73,30 @@ export default function ListLayoutWithTags({
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
-  const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
+  // Two tracks pulled straight from existing tags:
+  // "musings" = thinking-out-loud posts on EO in Africa, "AI" = AI posts.
+  type Category = 'all' | 'eo-africa' | 'ai' | 'activities'
+  const CATEGORY_TAG: Record<Exclude<Category, 'all'>, string> = {
+    'eo-africa': 'musings',
+    ai: 'AI',
+    activities: 'activities',
+  }
+  const [category, setCategory] = useState<Category>('all')
+  const isFiltering = category !== 'all'
+
+  // When filtering, search the full post list (not just the current page)
+  // so a match on an older page isn't silently dropped.
+  const displayPosts = isFiltering
+    ? posts.filter((post) => post.tags?.includes(CATEGORY_TAG[category]))
+    : initialDisplayPosts.length > 0
+      ? initialDisplayPosts
+      : posts
+
+  const pillBase =
+    'rounded-full px-4 py-1.5 text-sm font-medium uppercase tracking-wide transition-colors'
+  const pillActive = 'bg-primary-500 text-white'
+  const pillInactive =
+    'border border-gray-300 text-gray-500 hover:border-primary-500 hover:text-primary-500 dark:border-gray-700 dark:text-gray-400 dark:hover:border-primary-400 dark:hover:text-primary-400'
 
   return (
     <>
@@ -119,6 +143,36 @@ export default function ListLayoutWithTags({
             </div>
           </div>
           <div>
+            <div className="flex flex-wrap gap-2 pb-8 pt-2">
+              <button
+                type="button"
+                onClick={() => setCategory('all')}
+                className={`${pillBase} ${category === 'all' ? pillActive : pillInactive}`}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                onClick={() => setCategory('eo-africa')}
+                className={`${pillBase} ${category === 'eo-africa' ? pillActive : pillInactive}`}
+              >
+                EO in Africa
+              </button>
+              <button
+                type="button"
+                onClick={() => setCategory('ai')}
+                className={`${pillBase} ${category === 'ai' ? pillActive : pillInactive}`}
+              >
+                AI
+              </button>
+              <button
+                type="button"
+                onClick={() => setCategory('activities')}
+                className={`${pillBase} ${category === 'activities' ? pillActive : pillInactive}`}
+              >
+                Reports
+              </button>
+            </div>
             <ul>
               {displayPosts.map((post) => {
                 const { path, date, title, summary, tags } = post
@@ -141,7 +195,9 @@ export default function ListLayoutWithTags({
                             </Link>
                           </h2>
                           <div className="flex flex-wrap">
-                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                            {tags?.map((tag) => (
+                              <Tag key={tag} text={tag} />
+                            ))}
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
@@ -153,7 +209,7 @@ export default function ListLayoutWithTags({
                 )
               })}
             </ul>
-            {pagination && pagination.totalPages > 1 && (
+            {!isFiltering && pagination && pagination.totalPages > 1 && (
               <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
             )}
           </div>

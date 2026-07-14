@@ -1,1 +1,24 @@
-{"eo":1,"radar":1,"guide":1,"disaster":1}
+{
+  "eo": 11,
+  "disaster": 3,
+  "workshop": 2,
+  "ai": 2,
+  "activities": 6,
+  "data-cubes": 1,
+  "big-data": 1,
+  "cloud-processing": 1,
+  "musings": 4,
+  "commercial": 4,
+  "application": 5,
+  "foundation-models": 1,
+  "internship": 1,
+  "report": 1,
+  "cde": 1,
+  "analysis": 1,
+  "obia": 1,
+  "refugee-camp": 1,
+  "radar": 2,
+  "earthquake": 1,
+  "sar-reading": 1,
+  "remote-sensing": 1
+}

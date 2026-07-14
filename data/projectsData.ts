@@ -6,11 +6,11 @@ interface Project {
 }
 
 const projectsData: Project[] = [
-
   {
-    title: 'ICPR 2026 Contest: Beyond Visible Spectrum: AI for Agriculture 2026 Task: Boosting automatic crop disease classification using Sentinel-2 satellite imagery and self-supervised learning (SSL)',
+    title:
+      'ICPR 2026 Contest: Beyond Visible Spectrum: AI for Agriculture 2026 Task: Boosting automatic crop disease classification using Sentinel-2 satellite imagery and self-supervised learning (SSL)',
     description: `This project focuses on automatic crop disease classification from multispectral Sentinel-2 data. The challenge is to extract meaningful features from limited labeled data, using unlabeled satellite imagery using self-supervised learning, and evaluating downstream classification performance.`,
-    imgSrc: '/static/images/icpr.jpeg',
+    imgSrc: '/static/images/icpr2026.jpeg',
     href: 'https://github.com/Omowonuola-Akintola/ICPR-Contest-2026',
   },
 
@@ -27,7 +27,6 @@ const projectsData: Project[] = [
     imgSrc: '/static/images/earthquake.jpeg',
     href: 'https://github.com/Omowonuola-Akintola/richters-predictor-modeling-earthquake-damage',
   },
-
 
   {
     title: 'Sar Superpixel Classification',
@@ -47,7 +46,7 @@ const projectsData: Project[] = [
     imgSrc: '/static/images/Velocitymap.jpeg',
     href: 'https://github.com/Omowonuola-Akintola/sbas-insar-dam-monitoring',
   },
-  
+
   {
     title: 'The Women Learn Program',
     description: `In 2023, I piloted the Women Learn Program (WLP) through The GIS Girl, a social impact initiative that
@@ -67,8 +66,6 @@ const projectsData: Project[] = [
     imgSrc: '/static/images/Paper.jpeg',
     href: 'https://omowonuola-akintola.github.io/website/blog/OBIA',
   },
-
-
 ]
 
 export default projectsData

@@ -87,6 +87,7 @@ export default function ListLayoutWithTags({
 
   // When filtering, search the full post list (not just the current page)
   // so a match on an older page isn't silently dropped.
+  // ignoe this comment -testing 
   const displayPosts = isFiltering
     ? posts.filter((post) => post.tags?.includes(CATEGORY_TAG[category]))
     : initialDisplayPosts.length > 0
@@ -196,9 +197,7 @@ export default function ListLayoutWithTags({
                             </Link>
                           </h2>
                           <div className="flex flex-wrap">
-                            {tags?.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
+                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">

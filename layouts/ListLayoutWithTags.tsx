@@ -75,6 +75,7 @@ export default function ListLayoutWithTags({
 
   // Two tracks pulled straight from existing tags:
   // "musings" = thinking-out-loud posts on EO in Africa, "AI" = AI posts.
+  // addting this une
   type Category = 'all' | 'eo-africa' | 'ai' | 'activities'
   const CATEGORY_TAG: Record<Exclude<Category, 'all'>, string> = {
     'eo-africa': 'musings',

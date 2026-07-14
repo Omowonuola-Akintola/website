@@ -75,7 +75,6 @@ export default function ListLayoutWithTags({
 
   // Two tracks pulled straight from existing tags:
   // "musings" = thinking-out-loud posts on EO in Africa, "AI" = AI posts.
-  // addting this une
   type Category = 'all' | 'eo-africa' | 'ai' | 'activities'
   const CATEGORY_TAG: Record<Exclude<Category, 'all'>, string> = {
     'eo-africa': 'musings',
@@ -87,7 +86,6 @@ export default function ListLayoutWithTags({
 
   // When filtering, search the full post list (not just the current page)
   // so a match on an older page isn't silently dropped.
-  // ignoe this comment -testing 
   const displayPosts = isFiltering
     ? posts.filter((post) => post.tags?.includes(CATEGORY_TAG[category]))
     : initialDisplayPosts.length > 0
